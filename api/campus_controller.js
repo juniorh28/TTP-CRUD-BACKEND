@@ -11,6 +11,9 @@ router.post('/', (request, response, nextMiddleware) => {
   }).then(campus => {
     response.status(200)
     .json(campus)
+  }).catch(err => {
+    response.status(500).json()
+    .json(err)
   })
 })
 
@@ -24,13 +27,12 @@ router.get('/', (request, response, nextMiddleware) => {
     })
   })
   .catch(err => {
-    response.status(500)
+    response.status(500).json()
     .json(err)
   })
 })
 
 router.delete('/', (request, response, nextMiddleware) => {
-  console.log(request.body.id)
   campus_model.findByPk(request.body.id)
   .then(campus => {
     if (!campus) {
@@ -40,17 +42,35 @@ router.delete('/', (request, response, nextMiddleware) => {
     } 
     campus.destroy();
     response.status(200)
-    .json({
-      message:"Sucesss"
-    })
+    .json(campus)
   })
   .catch(err => {
-    response.status(500)
-    .json({
-      message: "An error has occured.", err
-    })
+    response.status(500).json()
   })
 })
+
+router.put('/', (request, response, nextMiddleware) => {
+  console.log(request.body.campus.id)
+  campus_model.findByPk(request.body.campus.id)
+  .then(campus => {
+    if (!campus) {
+      return response.status(404).json({
+        message: "campus not found"
+      })
+    }
+    campus.update({
+      name: request.body.campus.name,
+      info: request.body.campus.info,
+      address: request.body.campus.address,
+      img: request.body.campus.img
+    })
+    campus.save();
+    response.status(200)
+    .json(campus)
+  }).catch(err => {
+    response.status(500).json()
+  })
+}) 
 
 
 module.exports = router 
