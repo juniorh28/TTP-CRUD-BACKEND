@@ -13,8 +13,21 @@ router.post('/', (request, response, nextMiddleware) => {
 })
 
 router.get('/', (request, response, nextMiddleware) => {
-  response.send(campus_model.findAll())
+  campus_model.findAll()
+  .then(campuses => {
+    response.status(200)
+    .json({
+      message:"Sucesss", campuses
+    })
+  })
+  .catch(err => {
+    response.status(500)
+    .json({
+      message: "An error has occured.", err
+    })
+  })
 })
+
 
 module.exports = router 
 
