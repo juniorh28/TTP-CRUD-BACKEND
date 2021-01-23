@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-const PORT = 8084;
+const PORT = 8085;
 
 // global middleware.
 app.use(express.json());
@@ -13,6 +13,6 @@ app.use(cors());
 app.use("/api", require("./api"));
 
 // listen at the port number specified in PORT
-app.listen(8081, () => {
+app.listen(PORT, () => {
   console.log(`listening at port ${PORT}`);
 });
