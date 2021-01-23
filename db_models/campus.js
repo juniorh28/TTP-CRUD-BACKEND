@@ -1,5 +1,5 @@
 const { Sequelize, Model } = require("sequelize");
-const database = new Sequelize("CRUD", "postgres", "Inita809", {
+const database = new Sequelize("postgres", "postgres", "postgres", {
   host: "localhost",
   dialect: "postgres",
 });
@@ -31,7 +31,7 @@ const campus = database.define("campus", {
 });
 
 campus.sync().then(() => {
-  console.log("New table created");
+  console.log("Campuse table created");
 });
 
 module.exports = campus;

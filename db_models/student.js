@@ -1,5 +1,5 @@
 const { Sequelize, Model } = require("sequelize");
-const database = new Sequelize("CRUD", "postgres", "Inita809", {
+const database = new Sequelize("postgres", "postgres", "postgres", {
   host: "localhost",
   dialect: "postgres",
 });
@@ -28,7 +28,6 @@ const student = database.define("student", {
   gpa: {
     type: Sequelize.DECIMAL,
     allowNull: false,
-    len: [0, 4],
   },
   img: {
     type: Sequelize.STRING,

@@ -9,11 +9,9 @@ router.post('/', (request, response, nextMiddleware) => {
     address: request.body.address,
     img: request.body.img
   }).then(campus => {
-    response.status(200)
-    .json(campus)
+    response.status(200).json(campus)
   }).catch(err => {
-    response.status(500).json()
-    .json(err)
+    response.status(500).json(err)
   })
 })
 
