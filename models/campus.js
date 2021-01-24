@@ -38,8 +38,10 @@ const campus = database.define("campus", {
   },
 });
 
-campus.sync().then(() => {
-  console.log("Campuse table created");
-});
+// campus.sync().then(() => {
+//   console.log("Campuse table created");
+// });
+
+
 
 module.exports = campus;

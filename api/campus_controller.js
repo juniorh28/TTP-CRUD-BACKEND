@@ -1,13 +1,15 @@
 const express = require('express');
-const campus_model = require('../db_models/campus')
 const router = express.Router();
+const models = require('../models')
+
 
 router.post('/', (request, response, nextMiddleware) => {
-  campus_model.create({
+  models.campus_model.create({
     name: request.body.name,
     info: request.body.info,
     address: request.body.address,
-    img: request.body.img
+    img: request.body.img,
+    campus: request.body.campusId
   }).then(campus => {
     response.status(200).json(campus)
   }).catch(err => {
@@ -17,7 +19,10 @@ router.post('/', (request, response, nextMiddleware) => {
 
 
 router.get('/', (request, response, nextMiddleware) => {
-  campus_model.findAll()
+  models.campus_model.findAll({
+    include: {
+      model: models.student_model,
+  }})
   .then(campuses => {
     response.status(200)
     .json({
@@ -31,7 +36,7 @@ router.get('/', (request, response, nextMiddleware) => {
 })
 
 router.delete('/', (request, response, nextMiddleware) => {
-  campus_model.findByPk(request.body.id)
+  models.campus_model.findByPk(request.body.id)
   .then(campus => {
     if (!campus) {
       return response.status(404).json({
@@ -49,7 +54,7 @@ router.delete('/', (request, response, nextMiddleware) => {
 
 router.put('/', (request, response, nextMiddleware) => {
   console.log(request.body.campus.id)
-  campus_model.findByPk(request.body.campus.id)
+  models.campus_model.findByPk(request.body.campus.id)
   .then(campus => {
     if (!campus) {
       return response.status(404).json({
