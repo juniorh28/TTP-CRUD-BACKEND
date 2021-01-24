@@ -69,8 +69,16 @@ router.put('/', (request, response, nextMiddleware) => {
       img: request.body.campus.img
     })
     campus.save();
-    response.status(200)
-    .json(campus)
+
+    models.campus_model.findAll({
+      include: {
+        model: models.student_model,
+    }}).then(campuses => {
+      response.status(200)
+      .json({
+        message:"Sucesss", campuses
+      })
+    })
   }).catch(err => {
     response.status(500).json()
   })
