@@ -43,9 +43,4 @@ const student = database.define("student", {
   },
 });
 
-// student.sync().then(() => {
-//   console.log("Student table created");
-// });
-
-
 module.exports = student;

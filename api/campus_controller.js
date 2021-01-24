@@ -24,9 +24,10 @@ router.get('/', (request, response, nextMiddleware) => {
       model: models.student_model,
   }})
   .then(campuses => {
+    console.log("HERE____________",)
     response.status(200)
     .json({
-      message:"Sucesss", campuses 
+      message:"Sucesss", campuses
     })
   })
   .catch(err => {

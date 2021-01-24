@@ -20,6 +20,9 @@ router.post("/", (request, response, nextMiddleware) => {
     });
 });
 
+
+
+
 router.get("/", (request, response, nextMiddleware) => {
   models.student_model
     .findAll()
@@ -50,5 +53,25 @@ router.delete('/', (request, response, nextMiddleware) => {
     response.status(500).json()
   })
 })
+
+
+router.put('/', (request, response, nextMiddleware) => {
+  models.student_model.findByPk(request.body.student.studentId)
+  .then(student => {
+    if (!student) {
+      return response.status(404).json({
+        message: "student not found"
+      })
+    }
+    student.update({
+      campusId: request.body.student.campusId
+    })
+    student.save();
+    response.status(200)
+    .json(campus)
+  }).catch(err => {
+    response.status(500).json()
+  })
+}) 
 
 module.exports = router;
